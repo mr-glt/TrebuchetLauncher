@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
@@ -55,6 +56,27 @@ public class MainActivity extends AppCompatActivity {
     public void setup(){
         bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
             public void onDataReceived(byte[] data, String message) {
+                TextView acX = (TextView) findViewById(R.id.acX);
+                TextView acY = (TextView) findViewById(R.id.acY);
+                TextView acZ = (TextView) findViewById(R.id.acZ);
+                TextView gyX = (TextView) findViewById(R.id.gyX);
+                TextView gyY = (TextView) findViewById(R.id.gyY);
+                TextView gyZ = (TextView) findViewById(R.id.gyZ);
+                int gyXK = message.indexOf("A");
+                int gyYK = message.indexOf("B");
+                int gyZK = message.indexOf("C");
+                int acXK = message.indexOf("D");
+                int acYK = message.indexOf("E");
+                int acZK = message.indexOf("F");
+                int end = message.indexOf("G");
+
+                gyX.setText("X:" + message.substring(gyXK+1,gyYK));
+                gyY.setText("Y:" +message.substring(gyYK+1,gyZK));
+                gyZ.setText("Z:" +message.substring(gyZK+1,acXK));
+                acX.setText("X:" +message.substring(acXK+1,acYK));
+                acY.setText("Y:" +message.substring(acYK+1,acZK));
+                acZ.setText("Z:" +message.substring(acZK+1,end));
+
                 Log.e("TIZ", message);
             }
         });
@@ -63,7 +85,29 @@ public class MainActivity extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bt.send("H", true);
+                bt.send("1", true);
+            }
+        });
+        Button btnRed = (Button) findViewById(R.id.btnGreen);
+        Button btnBlue = (Button) findViewById(R.id.btnBlue);
+        btnRed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bt.send("2", true);
+            }
+        });
+
+        btnBlue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bt.send("3", true);
+            }
+        });
+        Button btnClear = (Button) findViewById(R.id.btnCLear);
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bt.send("4", true);
             }
         });
     }
