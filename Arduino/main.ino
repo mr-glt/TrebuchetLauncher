@@ -16,7 +16,7 @@ String incomingByte = "";
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(30, 4, NEO_GRB + NEO_KHZ800);
 
 void setup() {
-
+  pinMode(9, OUTPUT);
   Serial2.begin(9600);
   Serial.begin(9600);
   imu.begin();
@@ -34,24 +34,31 @@ void loop() {
   accelZ = imu.calcAccel(imu.ay);
   accelY = imu.calcAccel(imu.az);
   Serial2.println("A" + gyroX + "B" + gyroY + "C" + gyroZ + "D" + accelX + "E" + accelY + "F" + accelZ + "G");
+  if(Serial2.read() != ""){
+    incomingByte = Serial2.readString();
+    if(incomingByte.substring(0,1) == "1"){
+      colorWipe(strip.Color(255, 0, 0), 50);
+      Serial.println("Switched color to red");
+    }
+    if(incomingByte.substring(0,1) == "2"){
+      colorWipe(strip.Color(0, 255, 0), 50);
+      Serial.println("Switched color to green");
+    }
+    if(incomingByte.substring(0,1) == "3"){
+      colorWipe(strip.Color(0, 0, 255), 50);
+      Serial.println("Switched color to blue");
+    }
+    if(incomingByte.substring(0,1) == "4"){
+      colorWipe(strip.Color(0, 0, 0), 50);
+      Serial.println("Cleared lights");
+    }
+    if(incomingByte.substring(0,1) == "5"){
+      fire();
+      //Serial.println(incomingByte);
+    }
+  }
 
-  incomingByte = Serial2.readString();
-  if(incomingByte.substring(0,1) == "1"){
-    colorWipe(strip.Color(255, 0, 0), 50);
-    Serial.println(incomingByte);
-  }
-  if(incomingByte.substring(0,1) == "2"){
-    colorWipe(strip.Color(0, 255, 0), 50);
-    Serial.println(incomingByte);
-  }
-  if(incomingByte.substring(0,1) == "3"){
-    colorWipe(strip.Color(0, 0, 255), 50);
-    Serial.println(incomingByte);
-  }
-  if(incomingByte.substring(0,1) == "4"){
-    colorWipe(strip.Color(0, 0, 0), 50);
-    Serial.println(incomingByte);
-  }
+
   //delay(600);
 }
 void colorWipe(uint32_t c, uint8_t wait) {
@@ -60,4 +67,23 @@ void colorWipe(uint32_t c, uint8_t wait) {
     strip.show();
     delay(wait);
   }
+}
+void fire(){
+  //Fire
+  Serial.println("STARTED");
+  delay(500);
+  Serial.println("5...");
+  delay(1000);
+  Serial.println("4...");
+  delay(1000);
+  Serial.println("3...");
+  delay(1000);
+  Serial.println("2...");
+  delay(1000);
+  Serial.println("1...");
+  delay(1000);
+  analogWrite(9, 255);
+  Serial.println("GO");
+  delay(2000);
+  analogWrite(9, 0);
 }

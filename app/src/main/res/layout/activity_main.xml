@@ -10,14 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="xyz.syzygylabs.trebuchetlauncher.MainActivity">
 
-    <Button
-        android:text="Red"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
     <TextView
         android:text="Gyro"
         android:layout_width="wrap_content"
@@ -91,26 +83,54 @@
         android:text="Blue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button"
-        android:layout_alignEnd="@+id/button"
-        android:layout_marginTop="15dp"
-        android:id="@+id/btnBlue" />
+        android:id="@+id/btnBlue"
+        android:layout_alignBaseline="@+id/button"
+        android:layout_alignBottom="@+id/button"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:text="Green"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnBlue"
-        android:layout_alignStart="@+id/btnBlue"
-        android:layout_marginTop="20dp"
-        android:id="@+id/btnGreen" />
+        android:id="@+id/btnGreen"
+        android:layout_alignBaseline="@+id/btnBlue"
+        android:layout_alignBottom="@+id/btnBlue"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp" />
 
     <Button
         android:text="Clear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="23dp"
         android:id="@+id/btnCLear"
-        android:layout_below="@+id/btnGreen"
-        android:layout_alignStart="@+id/btnGreen" />
+        android:layout_below="@+id/btnBlue"
+        android:layout_alignStart="@+id/btnBlue" />
+
+    <Button
+        android:text="Red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:layout_marginBottom="75dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/acZ" />
+
+    <Button
+        android:text="Fire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/btnBlue"
+        android:id="@+id/btnFire" />
+
+    <TextView
+        android:text="Lighting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:layout_above="@+id/button"
+        android:layout_alignStart="@+id/button"
+        android:layout_marginBottom="14dp" />
 </RelativeLayout>

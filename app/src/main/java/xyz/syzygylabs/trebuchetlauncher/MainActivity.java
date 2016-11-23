@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 acY.setText("Y:" +message.substring(acYK+1,acZK));
                 acZ.setText("Z:" +message.substring(acZK+1,end));
 
-                Log.e("TIZ", message);
+                Log.i("DATA:", message);
             }
         });
 
@@ -89,14 +89,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         Button btnRed = (Button) findViewById(R.id.btnGreen);
-        Button btnBlue = (Button) findViewById(R.id.btnBlue);
         btnRed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 bt.send("2", true);
             }
         });
-
+        Button btnBlue = (Button) findViewById(R.id.btnBlue);
         btnBlue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,6 +107,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 bt.send("4", true);
+            }
+        });
+        Button btnFire = (Button) findViewById(R.id.btnFire);
+        btnFire.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bt.send("5", true);
             }
         });
     }
