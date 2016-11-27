@@ -2,6 +2,9 @@
 #include <SPI.h>
 #include <SparkFunLSM9DS1.h>
 #include <Adafruit_NeoPixel.h>
+#include <SparkFunDS1307RTC.h>
+#include <SPI.h>
+#include <SD.h>
 LSM9DS1 imu;
 #define LSM9DS1_M  0x1E
 #define LSM9DS1_AG  0x6B
@@ -22,9 +25,12 @@ void setup() {
   imu.begin();
   strip.begin();
   strip.show();
+  rtc.begin();
+  SD.begin(5);
 }
 void loop() {
   //Serial2.println("Hello");
+  rtc.update();
   imu.readGyro();
   imu.readAccel();
   gyroX = imu.calcGyro(imu.gx);
@@ -33,6 +39,32 @@ void loop() {
   accelX = imu.calcAccel(imu.ax);
   accelZ = imu.calcAccel(imu.ay);
   accelY = imu.calcAccel(imu.az);
+  // Read the time:
+  int s = rtc.second();
+  int m = rtc.minute();
+  int h = rtc.hour();
+
+  // Read the day/date:
+  int dy = rtc.day();
+  int da = rtc.date();
+  int mo = rtc.month();
+  int yr = rtc.year();
+  File dataFile = SD.open("data.csv", FILE_WRITE);
+  dataFile.print(String(mo) + "/" + String(da) + "/" + String(yr) + " " + String(h) + ":" + String(m) + ":" + String(s));
+  //Serial.println(String(mo) + "/" + String(da) + "/" + String(yr) + " " + String(h) + ":" + String(m) + ":" + String(s));
+  dataFile.print(",");
+  dataFile.print(gyroX);
+  dataFile.print(",");
+  dataFile.print(gyroY);
+  dataFile.print(",");
+  dataFile.print(gyroZ);
+  dataFile.print(",");
+  dataFile.print(accelX);
+  dataFile.print(",");
+  dataFile.print(accelY);
+  dataFile.print(",");
+  dataFile.println(accelZ);
+  dataFile.close();
   Serial2.println("A" + gyroX + "B" + gyroY + "C" + gyroZ + "D" + accelX + "E" + accelY + "F" + accelZ + "G");
   if(Serial2.read() != ""){
     incomingByte = Serial2.readString();
@@ -73,17 +105,17 @@ void fire(){
   Serial.println("STARTED");
   delay(500);
   Serial.println("5...");
-  delay(1000);
+  colorWipe(strip.Color(255, 0, 0), 33);
   Serial.println("4...");
-  delay(1000);
+  colorWipe(strip.Color(0, 255, 0), 33);
   Serial.println("3...");
-  delay(1000);
+  colorWipe(strip.Color(0, 0, 255), 33);
   Serial.println("2...");
-  delay(1000);
+  colorWipe(strip.Color(255, 0, 0), 33);
   Serial.println("1...");
-  delay(1000);
-  analogWrite(9, 255);
+  colorWipe(strip.Color(0, 0, 0), 33);
+  analogWrite(3, 255);
   Serial.println("GO");
   delay(2000);
-  analogWrite(9, 0);
+  analogWrite(3, 0);
 }

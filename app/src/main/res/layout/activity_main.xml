@@ -99,24 +99,6 @@
         android:layout_marginEnd="20dp" />
 
     <Button
-        android:text="Clear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
-        android:id="@+id/btnCLear"
-        android:layout_below="@+id/btnBlue"
-        android:layout_alignStart="@+id/btnBlue" />
-
-    <Button
-        android:text="Red"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:layout_marginBottom="75dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/acZ" />
-
-    <Button
         android:text="Fire"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -124,13 +106,28 @@
         android:layout_alignStart="@+id/btnBlue"
         android:id="@+id/btnFire" />
 
+    <Button
+        android:text="Red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/acZ" />
+
+    <Button
+        android:text="Clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnCLear"
+        android:layout_above="@+id/btnBlue"
+        android:layout_alignStart="@+id/btnBlue" />
+
     <TextView
         android:text="Lighting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        android:layout_above="@+id/button"
-        android:layout_alignStart="@+id/button"
-        android:layout_marginBottom="14dp" />
+        android:layout_above="@+id/btnCLear"
+        android:layout_alignStart="@+id/button" />
 </RelativeLayout>
