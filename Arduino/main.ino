@@ -20,7 +20,6 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(30, 4, NEO_GRB + NEO_KHZ800);
 
 void setup() {
   pinMode(9, OUTPUT);
-  Serial2.begin(9600);
   Serial.begin(9600);
   imu.begin();
   strip.begin();
@@ -29,7 +28,7 @@ void setup() {
   SD.begin(5);
 }
 void loop() {
-  //Serial2.println("Hello");
+  //Serial.println("Hello");
   rtc.update();
   imu.readGyro();
   imu.readAccel();
@@ -65,29 +64,27 @@ void loop() {
   dataFile.print(",");
   dataFile.println(accelZ);
   dataFile.close();
-  Serial2.println("A" + gyroX + "B" + gyroY + "C" + gyroZ + "D" + accelX + "E" + accelY + "F" + accelZ + "G");
-  if(Serial2.read() != ""){
-    incomingByte = Serial2.readString();
+  Serial.println("A" + gyroX + "B" + gyroY + "C" + gyroZ + "D" + accelX + "E" + accelY + "F" + accelZ + "G");
+    incomingByte = Serial.readString();
     if(incomingByte.substring(0,1) == "1"){
       colorWipe(strip.Color(255, 0, 0), 50);
-      Serial.println("Switched color to red");
+      //Serial.println("Switched color to red");
     }
     if(incomingByte.substring(0,1) == "2"){
       colorWipe(strip.Color(0, 255, 0), 50);
-      Serial.println("Switched color to green");
+      //Serial.println("Switched color to green");
     }
     if(incomingByte.substring(0,1) == "3"){
       colorWipe(strip.Color(0, 0, 255), 50);
-      Serial.println("Switched color to blue");
+      //Serial.println("Switched color to blue");
     }
     if(incomingByte.substring(0,1) == "4"){
       colorWipe(strip.Color(0, 0, 0), 50);
-      Serial.println("Cleared lights");
+      //Serial.println("Cleared lights");
     }
     if(incomingByte.substring(0,1) == "5"){
       fire();
       //Serial.println(incomingByte);
-    }
   }
 
 
@@ -102,20 +99,20 @@ void colorWipe(uint32_t c, uint8_t wait) {
 }
 void fire(){
   //Fire
-  Serial.println("STARTED");
+  //Serial.println("STARTED");
   delay(500);
-  Serial.println("5...");
+  //Serial.println("5...");
   colorWipe(strip.Color(255, 0, 0), 33);
-  Serial.println("4...");
+  //Serial.println("4...");
   colorWipe(strip.Color(0, 255, 0), 33);
-  Serial.println("3...");
+  //Serial.println("3...");
   colorWipe(strip.Color(0, 0, 255), 33);
-  Serial.println("2...");
+  //Serial.println("2...");
   colorWipe(strip.Color(255, 0, 0), 33);
-  Serial.println("1...");
+  //Serial.println("1...");
   colorWipe(strip.Color(0, 0, 0), 33);
   analogWrite(3, 255);
-  Serial.println("GO");
+  //Serial.println("GO");
   delay(2000);
   analogWrite(3, 0);
 }
