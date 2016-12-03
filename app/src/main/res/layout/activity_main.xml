@@ -10,75 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="xyz.syzygylabs.trebuchetlauncher.MainActivity">
 
-    <TextView
-        android:text="Gyro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="21dp"
-        android:id="@+id/textView"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
-
-    <TextView
-        android:text="X"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_alignStart="@+id/textView"
-        android:id="@+id/gyX" />
-
-    <TextView
-        android:text="Y"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/gyX"
-        android:layout_alignStart="@+id/gyX"
-        android:id="@+id/gyY" />
-
-    <TextView
-        android:text="Z"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/gyY"
-        android:layout_alignStart="@+id/gyY"
-        android:id="@+id/gyZ" />
-
-    <TextView
-        android:text="Accelerometer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:id="@+id/Accelerometer"
-        android:layout_below="@+id/gyZ"
-        android:layout_alignStart="@+id/gyZ"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-    <TextView
-        android:text="X"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Accelerometer"
-        android:layout_alignStart="@+id/Accelerometer"
-        android:id="@+id/acX" />
-
-    <TextView
-        android:text="Y"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/acX"
-        android:layout_alignStart="@+id/acX"
-        android:id="@+id/acY" />
-
-    <TextView
-        android:text="Z"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/acY"
-        android:layout_alignStart="@+id/acY"
-        android:id="@+id/acZ" />
-
     <Button
         android:text="Blue"
         android:layout_width="wrap_content"
@@ -97,14 +28,6 @@
         android:layout_alignBottom="@+id/btnBlue"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="20dp" />
-
-    <Button
-        android:text="Fire"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/btnBlue"
-        android:id="@+id/btnFire" />
 
     <Button
         android:text="Red"
@@ -130,4 +53,12 @@
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         android:layout_above="@+id/btnCLear"
         android:layout_alignStart="@+id/button" />
+
+    <Button
+        android:text="Fire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnFire"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/btnCLear" />
 </RelativeLayout>
