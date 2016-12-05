@@ -21,7 +21,7 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(30, 4, NEO_GRB + NEO_KHZ800);
 void setup() {
   pinMode(9, OUTPUT);
   Serial.begin(9600);
-  imu.begin();
+  //imu.begin();
   strip.begin();
   strip.show();
   rtc.begin();
@@ -30,14 +30,14 @@ void setup() {
 void loop() {
   //Serial.println("Hello");
   rtc.update();
-  imu.readGyro();
-  imu.readAccel();
-  gyroX = imu.calcGyro(imu.gx);
-  gyroY = imu.calcGyro(imu.gy);
-  gyroZ = imu.calcGyro(imu.gz);
-  accelX = imu.calcAccel(imu.ax);
-  accelZ = imu.calcAccel(imu.ay);
-  accelY = imu.calcAccel(imu.az);
+  //imu.readGyro();
+  //imu.readAccel();
+  //gyroX = imu.calcGyro(imu.gx);
+  //gyroY = imu.calcGyro(imu.gy);
+  //gyroZ = imu.calcGyro(imu.gz);
+  //accelX = imu.calcAccel(imu.ax);
+  //accelZ = imu.calcAccel(imu.ay);
+  //accelY = imu.calcAccel(imu.az);
   // Read the time:
   int s = rtc.second();
   int m = rtc.minute();
@@ -51,20 +51,20 @@ void loop() {
   File dataFile = SD.open("data.csv", FILE_WRITE);
   dataFile.print(String(mo) + "/" + String(da) + "/" + String(yr) + " " + String(h) + ":" + String(m) + ":" + String(s));
   //Serial.println(String(mo) + "/" + String(da) + "/" + String(yr) + " " + String(h) + ":" + String(m) + ":" + String(s));
-  dataFile.print(",");
-  dataFile.print(gyroX);
-  dataFile.print(",");
-  dataFile.print(gyroY);
-  dataFile.print(",");
-  dataFile.print(gyroZ);
-  dataFile.print(",");
-  dataFile.print(accelX);
-  dataFile.print(",");
-  dataFile.print(accelY);
-  dataFile.print(",");
-  dataFile.println(accelZ);
-  dataFile.close();
-  Serial.println("A" + gyroX + "B" + gyroY + "C" + gyroZ + "D" + accelX + "E" + accelY + "F" + accelZ + "G");
+  //dataFile.print(",");
+  //dataFile.print(gyroX);
+  //dataFile.print(",");
+  //dataFile.print(gyroY);
+  //dataFile.print(",");
+  //dataFile.print(gyroZ);
+  //dataFile.print(",");
+  //dataFile.print(accelX);
+  //dataFile.print(",");
+  //dataFile.print(accelY);
+  //dataFile.print(",");
+  //dataFile.println(accelZ);
+  //dataFile.close();
+  //Serial.println("A" + gyroX + "B" + gyroY + "C" + gyroZ + "D" + accelX + "E" + accelY + "F" + accelZ + "G");
     incomingByte = Serial.readString();
     if(incomingByte.substring(0,1) == "1"){
       colorWipe(strip.Color(255, 0, 0), 50);
@@ -83,9 +83,9 @@ void loop() {
       //Serial.println("Cleared lights");
     }
     if(incomingByte.substring(0,1) == "5"){
-      fire();
+      rainbowCycle(10);
       //Serial.println(incomingByte);
-  }
+    }
 
 
   //delay(600);
@@ -95,6 +95,39 @@ void colorWipe(uint32_t c, uint8_t wait) {
     strip.setPixelColor(i, c);
     strip.show();
     delay(wait);
+  }
+}
+void rainbowCycle(uint8_t wait) {
+  uint16_t i, j;
+
+  for(j=0; j<256*5; j++) { // 5 cycles of all colors on wheel
+    for(i=0; i< strip.numPixels(); i++) {
+      strip.setPixelColor(i, Wheel(((i * 256 / strip.numPixels()) + j) & 255));
+    }
+    strip.show();
+    incomingByte = Serial.readString();
+    if(incomingByte.substring(0,1) == "1"){
+      colorWipe(strip.Color(255, 0, 0), 50);
+      //Serial.println("Switched color to red");
+    }
+    if(incomingByte.substring(0,1) == "2"){
+      colorWipe(strip.Color(0, 255, 0), 50);
+      //Serial.println("Switched color to green");
+    }
+    if(incomingByte.substring(0,1) == "3"){
+      colorWipe(strip.Color(0, 0, 255), 50);
+      //Serial.println("Switched color to blue");
+    }
+    if(incomingByte.substring(0,1) == "4"){
+      colorWipe(strip.Color(0, 0, 0), 50);
+      //Serial.println("Cleared lights");
+    }
+    if(incomingByte.substring(0,1) == "5"){
+      rainbowCycle(10);
+      //Serial.println(incomingByte);
+    }
+    delay(wait);
+
   }
 }
 void fire(){
